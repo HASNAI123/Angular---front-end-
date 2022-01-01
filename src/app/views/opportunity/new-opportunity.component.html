@@ -92,8 +92,8 @@
                   </div>
                 </div>
                 <div>
-                  <label>Created Date</label>
-                  <div>{{ detail?.created_at | date: "dd-MMM-yyyy" }}</div>
+                  <!-- <label>Created Date</label>
+                  <div>{{ detail?.created_at | date: "dd-MMM-yyyy" }}</div> -->
                 </div>
                 <div>
                   <label>Primary Contact</label>
@@ -101,9 +101,14 @@
                     <select
                       class="form-control"
                       formControlName="customer_contact_id"
-                    >
-                      <option value="">Please select...</option>
-                      <option></option>
+                    
+                      >
+                      <option  value="">Please select...</option>
+
+                      <option  *ngFor="let item of primarycontacts"   value="{{item.company_name}}"> 
+                        {{item.company_name}}
+                      </option>
+                     
                     </select>
                   </div>
                 </div>
@@ -115,12 +120,12 @@
                       formControlName="customer_contact2_id"
                     >
                       <option value="">Please select...</option>
-                      <option></option>
+                      <option *ngFor="let item of othercontacts" value="{{item.company_name}}">{{item.company_name}}</option>
                     </select>
                   </div>
                 </div>
                 <div>
-                  <label>Owner</label>
+                  <!-- <label>Owner</label> -->
                 </div>
               </div>
             </div>

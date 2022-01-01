@@ -104,7 +104,6 @@
                     
                       >
                       <option  value="">Please select...</option>
-
                       <option  *ngFor="let item of primarycontacts"   value="{{item.company_name}}"> 
                         {{item.company_name}}
                       </option>
@@ -120,6 +119,7 @@
                       formControlName="customer_contact2_id"
                     >
                       <option value="">Please select...</option>
+
                       <option *ngFor="let item of othercontacts" value="{{item.company_name}}">{{item.company_name}}</option>
                     </select>
                   </div>

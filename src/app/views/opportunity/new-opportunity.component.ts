@@ -218,20 +218,14 @@ export class NewOpportunityComponent implements OnInit {
     console.log("kkkkiiikkk")
     this.appService.getQuery("/contacts?").subscribe((e)=>{
       // console.log(e)
-     
-
-    
-
-
       e['data']?.forEach(element => {
         if(element.primary_account!==null){
           this.primarycontacts.push(element.primary_account);
           // console.log(element.primary_account);
           console.log("primary_account")
-
         }else{
           if(element.other_accounts.length>0){
-            console.log(element.other_accounts);
+            // console.log(element.other_accounts);
             console.log("other_accounts")
             this.othercontacts.push(element.other_accounts[0])
    
@@ -329,7 +323,6 @@ export class NewOpportunityComponent implements OnInit {
         this.forecast_category = data["data"]["forecast_category"];
       });
   }
-
   companySelected(value) {
     this.company_id = value.id;
   }

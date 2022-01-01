@@ -49,6 +49,8 @@ export class NewOpportunityComponent implements OnInit {
   companyControl = new FormControl();
   companies: Company[] = [];
   filteredCompanies: Observable<Company[]>;
+  primarycontacts: any =[];
+  othercontacts: any =[];
 
   //submission data
   color = "#00538a";
@@ -168,6 +170,7 @@ export class NewOpportunityComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getContacts()
     // this.filteredProductList = this.productControl.valueChanges.pipe(
     //   startWith(""),
     //   map((value) => (typeof value === "string" ? value : value.name)),
@@ -207,6 +210,35 @@ export class NewOpportunityComponent implements OnInit {
   //company filter functions
   displayFn(company: Company): string {
     return company && company.name ? company.name : "";
+  }
+
+
+
+  getContacts(){
+    console.log("kkkkiiikkk")
+    this.appService.getQuery("/contacts?").subscribe((e)=>{
+      // console.log(e)
+     
+
+    
+
+
+      e['data']?.forEach(element => {
+        if(element.primary_account!==null){
+          this.primarycontacts.push(element.primary_account);
+          // console.log(element.primary_account);
+          console.log("primary_account")
+
+        }else{
+          if(element.other_accounts.length>0){
+            console.log(element.other_accounts);
+            console.log("other_accounts")
+            this.othercontacts.push(element.other_accounts[0])
+   
+          }
+      }
+      });
+    })
   }
 
   //company filter functions

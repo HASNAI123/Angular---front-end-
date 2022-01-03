@@ -49,8 +49,8 @@ export class NewOpportunityComponent implements OnInit {
   companyControl = new FormControl();
   companies: Company[] = [];
   filteredCompanies: Observable<Company[]>;
-  primarycontacts: any =[];
-  othercontacts: any =[];
+  primarycontacts: any = [];
+  othercontacts: any = [];
 
   //submission data
   color = "#00538a";
@@ -167,10 +167,10 @@ export class NewOpportunityComponent implements OnInit {
     private appService: AppService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.getContacts()
+    // this.getContacts()
     // this.filteredProductList = this.productControl.valueChanges.pipe(
     //   startWith(""),
     //   map((value) => (typeof value === "string" ? value : value.name)),
@@ -214,26 +214,26 @@ export class NewOpportunityComponent implements OnInit {
 
 
 
-  getContacts(){
-    console.log("kkkkiiikkk")
-    this.appService.getQuery("/contacts?").subscribe((e)=>{
-      // console.log(e)
-      e['data']?.forEach(element => {
-        if(element.primary_account!==null){
-          this.primarycontacts.push(element.primary_account);
-          // console.log(element.primary_account);
-          console.log("primary_account")
-        }else{
-          if(element.other_accounts.length>0){
-            // console.log(element.other_accounts);
-            console.log("other_accounts")
-            this.othercontacts.push(element.other_accounts[0])
-   
-          }
-      }
-      });
-    })
-  }
+  // getContacts(){
+  //   console.log("kkkkiiikkk")
+  //   this.appService.getQuery("/contacts?").subscribe((e)=>{
+  //     // console.log(e)
+  //     e['data']?.forEach(element => {
+  //       if(element.primary_account!==null){
+  //         this.primarycontacts.push(element.primary_account);
+  //         // console.log(element.primary_account);
+  //         console.log("primary_account")
+  //       }else{
+  //         if(element.other_accounts.length>0){
+  //           // console.log(element.other_accounts);
+  //           console.log("other_accounts")
+  //           this.othercontacts.push(element.other_accounts[0])
+
+  //         }
+  //     }
+  //     });
+  //   })
+  // }
 
   //company filter functions
   private _filter(name: string): Company[] {
@@ -252,12 +252,12 @@ export class NewOpportunityComponent implements OnInit {
     this.appService
       .getQuery("/opportunity/get-customer?company_name=" + keyword)
       .subscribe((data) => {
-        console.log("Customer-name: ", data["data"]);
+        // console.log("Customer-name: ", data["data"]);
 
         if (data["data"].length > 0) {
           this.companies.splice(0, this.companies.length);
           data["data"].forEach((value) => {
-            console.log("value:", value);
+            // console.log("value:", value);
 
             this.customerId = value.id;
             this.data_area_id = value.data_area_id;
@@ -270,7 +270,6 @@ export class NewOpportunityComponent implements OnInit {
               data_area_id: value.data_area_id,
             });
 
-            // this.getCustomerPrimaryContact();
           });
         }
       });
@@ -325,21 +324,25 @@ export class NewOpportunityComponent implements OnInit {
   }
   companySelected(value) {
     this.company_id = value.id;
+    // console.log(value, 'ppp')
+    this.getCustomerPrimaryContact(value.data_area_id, value.external_id, value.name);
+
   }
 
-  getCustomerPrimaryContact() {
-    // this.appService
-    //   .getQuery(
-    //     "/api/opportunity/get-customer-contacts?data_area_id=" +
-    //       this.data_area_id +
-    //       "&&external_id=" +
-    //       this.external_id +
-    //       "&&company_name" +
-    //       this.name
-    //   )
-    //   .subscribe((data) => {
-    //     console.log("customer-data: ", data);
-    //   });
+  getCustomerPrimaryContact(data_area_id, external_id, customer_name) {
+    console.log(data_area_id, external_id, customer_name, 'oool')
+    this.appService
+      .getQuery(
+        "/opportunity/get-customer-contacts?data_area_id=" + data_area_id + "&&external_id=" + external_id + "&&company_name=" + customer_name
+      )
+      .subscribe((data) => {
+        console.log("customer-data: ", data);
+        data['data'].forEach(element => {
+          if (element.primary_account !== null && element.primary_account !== "") {
+            this.primarycontacts.push(element.primary_account);
+          }
+        });
+      });
   }
   getStatusList() {
     this.appService.getQuery("/opportunity-status", null).subscribe((data) => {
@@ -438,7 +441,7 @@ export class NewOpportunityComponent implements OnInit {
           this.total_price[index] =
           this.discount[index] =
           this.amount[index] =
-            "";
+          "";
       });
   }
 
@@ -468,7 +471,7 @@ export class NewOpportunityComponent implements OnInit {
         discount: this.addProductForm.value.discount,
         amount:
           this.addProductForm.value.quantity *
-            this.addProductForm.value.list_price -
+          this.addProductForm.value.list_price -
           this.addProductForm.value.discount,
         product_manager: this.addProductForm.value.product_manager,
         standard_warranty: this.addProductForm.value.standard_warranty,
@@ -644,10 +647,10 @@ export class NewOpportunityComponent implements OnInit {
     el.scrollIntoView();
   }
 
-  increaseProductQuantity(){
+  increaseProductQuantity() {
     this.productQuantity++;
   }
-  decrementProductQuantity(){
+  decrementProductQuantity() {
     this.productQuantity--;
   }
 }

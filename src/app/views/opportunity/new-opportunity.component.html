@@ -79,10 +79,12 @@
                 style="background-color: #f6f6f6"
               >
                 <div
-                  class="d-flex justify-content-between p-125"
+                  class="d-flex justify-content-between p-15"
                   style="background-color: #f6f6f6"
                 >
+               
                   <div>
+                    <label>Topic</label>
                     <input
                       type="text"
                       formControlName="topic"
@@ -104,8 +106,8 @@
                     
                       >
                       <option  value="">Please select...</option>
-                      <option  *ngFor="let item of primarycontacts"   value="{{item.company_name}}"> 
-                        {{item.company_name}}
+                      <option  *ngFor="let item of primarycontacts"   value="{{item}}"> 
+                        {{item}}
                       </option>
                      
                     </select>

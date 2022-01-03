@@ -455,6 +455,7 @@ export class NewOpportunityComponent implements OnInit {
       });
   }
 
+  
   addFullProduct() {
     this.appService
       .postQuery("/opportunity/create-product", {
